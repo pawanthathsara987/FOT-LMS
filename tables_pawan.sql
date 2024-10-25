@@ -31,3 +31,6 @@ CREATE TABLE stu_course(
     FOREIGN KEY (stu_id) REFERENCES student(stu_id),
     FOREIGN KEY (cour_code) REFERENCES course(cour_code)
 );
+
+ALTER TABLE stu_course
+ADD cour_status VARCHAR(10);
