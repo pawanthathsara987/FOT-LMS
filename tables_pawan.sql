@@ -7,9 +7,11 @@ CREATE TABLE department(
 
 CREATE TABLE course(
     cour_code CHAR(10) PRIMARY KEY,
+    dep_id CHAR(4),
     cour_name VARCHAR(50),
     cour_status VARCHAR(50),
-    cour_credit INT(1)
+    cour_credit INT(1),
+    FOREIGN KEY (dep_id) REFERENCES department(dep_id)
 );
 
 CREATE TABLE dean(
