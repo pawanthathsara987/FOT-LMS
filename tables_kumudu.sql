@@ -1,4 +1,4 @@
-CREATE TABLE Student (
+CREATE TABLE student (
     stu_id CHAR(8) PRIMARY KEY,
     stu_fname VARCHAR(50),
     stu_lname VARCHAR(50), 
@@ -8,5 +8,4 @@ CREATE TABLE Student (
     stu_mobile INT(10),
     dep_id CHAR(4)  
 );
-
 
