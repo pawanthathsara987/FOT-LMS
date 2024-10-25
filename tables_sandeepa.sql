@@ -21,3 +21,15 @@ CREATE TABLE exam_marks(
     CHECK (assessment BETWEEN 0 AND 10),
     CHECK (grade IN ('A','B','C','S','F'))
 );
+
+
+CREATE TABLE admin(
+    adm_id CHAR (8) PRIMARY KEY,
+    adm_fname VARCHAR (20) NOT NULL,
+    adm_lname VARCHAR (20) NOT NULL,
+    adm_email VARCHAR (50) NOT NULL,
+    adm_dob DATE,
+    adm_gender CHAR (1),
+    adm_mobile INT (10),
+    CHECK (adm_gender IN ('M','F'))
+);
