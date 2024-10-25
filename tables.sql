@@ -21,3 +21,11 @@ CREATE TABLE dean(
     dean_dob DATE,
     dean_mobile INT(10)
 );
+
+CREATE TABLE stu_course(
+    stu_id CHAR(8),
+    cour_code CHAR(10),
+
+    FOREIGN KEY (stu_id) REFERENCES student(stu_id),
+    FOREIGN KEY (cour_code) REFERENCES course(cour_code)
+);
