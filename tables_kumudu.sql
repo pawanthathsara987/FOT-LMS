@@ -9,3 +9,6 @@ CREATE TABLE student (
     dep_id CHAR(4)  
 );
 
+ALTER TABLE student
+ADD stu_status VARCHAR(10);
+
