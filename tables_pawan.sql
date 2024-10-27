@@ -24,6 +24,9 @@ CREATE TABLE dean(
     dean_mobile INT(10)
 );
 
+ALTER TABLE dean
+ADD dean_mobile CHAR(15);
+
 CREATE TABLE stu_course(
     stu_id CHAR(8),
     cour_code CHAR(10),
@@ -85,3 +88,9 @@ VALUES
     ("BST1251","d003","Fundamentals Genetics","T",1),
     ("BST1262","d003","Basic Microbiology","T/P",2),
     ("BST1282","d003","Fundamentals In Agriculture","T/P",2);
+
+
+INSERT INTO dean
+    (dean_id,dean_fname,dean_lname,dean_email,gender,dean_dob,dean_mobile)
+VALUES
+    ("dn1","Subash","Jayasinghe","subash_fot@gmail.com","M","1970-02-01","7712332199");
