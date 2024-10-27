@@ -12,3 +12,5 @@ CREATE TABLE student (
 ALTER TABLE student
 ADD stu_status VARCHAR(10);
 
+/*comment*/
+
