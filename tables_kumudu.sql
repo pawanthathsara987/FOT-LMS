@@ -12,5 +12,34 @@ CREATE TABLE student (
 ALTER TABLE student
 ADD stu_status VARCHAR(10);
 
-/*comment*/
+ALTER TABLE student
+ADD FOREIGN KEY (dep_id) REFERENCES department(dep_id);
+
+/* attendence table */
+
+CREATE TABLE attendence (
+    atten_id CHAR(6) PRIMARY KEY,
+    stu_id CHAR(8),
+    cour_code CHAR(10),
+    tec_officer_id CHAR(5),
+    atten_date DATE,
+    atten_status VARCHAR(10),
+    FOREIGN KEY (stu_id) REFERENCES student(stu_id),
+    FOREIGN KEY (cour_code) REFERENCES course(cour_code),
+    FOREIGN KEY (tec_officer_id) REFERENCES tec_officer(tec_officer_id)
+);
+
+/* medical table */
+
+CREATE TABLE medical (
+    med_id CHAR(5) PRIMARY KEY,
+    stu_id CHAR(8),
+    atten_id CHAR(6),
+    tec_officer_id CHAR(5),
+    med_date DATE,
+    med_descrip VARCHAR(150),
+    FOREIGN KEY (tec_officer_id) REFERENCES tec_officer(tec_officer_id),
+    FOREIGN KEY (atten_id) REFERENCES attendence(atten_id),
+    FOREIGN KEY (stu_id) REFERENCES student(stu_id)
+);
 
