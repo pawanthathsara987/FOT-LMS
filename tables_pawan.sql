@@ -34,3 +34,14 @@ CREATE TABLE stu_course(
 
 ALTER TABLE stu_course
 ADD cour_status VARCHAR(10);
+
+
+/*Table data*/
+
+INSERT INTO department
+    (dep_id,dep_name)
+VALUES
+    ("d001","ET"),
+    ("d002","ICT"),
+    ("d003","BST"),
+    ("d004","MDS");
