@@ -45,3 +45,43 @@ VALUES
     ("d002","ICT"),
     ("d003","BST"),
     ("d004","MDS");
+
+
+INSERT INTO course
+    (cour_code,dep_id,cour_name,cour_status,cour_credit)
+VALUES
+    ("ICT1212","d002","Database Management Systems","T",2),
+    ("ICT1222","d002","Database Management Systems Practicum","P",2),
+    ("ICT1233","d002","Server Side Web Development","T/P",3),
+    ("ICT1242","d002","Computer Architecture","T",2),
+    ("ICT1253","d002","Computer Networks","T/P",3),
+    ("TCS1212","d004","Fundamentals of Management","T",2),
+    ("TMS1233","d004","Discrete Mathematics","T",2),
+    ("ENG1212","d004","English","T",2);
+
+UPDATE course
+SET cour_credit = 3
+WHERE cour_code = "TMS1233";
+
+INSERT INTO course
+    (cour_code,dep_id,cour_name,cour_status,cour_credit)
+VALUES
+    ("ENT1221","d001","Common Practical III","P",1),
+    ("ENT1211","d001","Workshop Technology II","P",1),
+    ("TMS1223","d001","Computer Programming","T/P",3),
+    ("ENT1231","d001","Common Practical II","P",1),
+    ("ENT1253","d001","Engineering Properties of Matter","T",3),
+    ("TMS1213","d001","Applied Calculus II","T",3),
+    ("ENT1242","d001","Electricity and Magnetism","T",2);
+
+INSERT INTO course
+    (cour_code,dep_id,cour_name,cour_status,cour_credit)
+VALUES
+    ("BST1272","d003","Introduction to Fisheries Biology","T",2),
+    ("BST1212","d003","Information Technology","T/P",2),
+    ("BST1222","d003","Electronics for BST","T/P",2),
+    ("BST1232","d003","Organic Chemistry","T/P",2),
+    ("BST1242","d003","Basic Chemistry","T/P",2),
+    ("BST1251","d003","Fundamentals Genetics","T",1),
+    ("BST1262","d003","Basic Microbiology","T/P",2),
+    ("BST1282","d003","Fundamentals In Agriculture","T/P",2);
