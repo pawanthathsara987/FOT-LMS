@@ -33,3 +33,13 @@ CREATE TABLE admin(
     adm_mobile INT (10),
     CHECK (adm_gender IN ('M','F'))
 );
+
+
+
+ALTER TABLE admin MODIFY adm_mobile CHAR(10);
+
+
+INSERT INTO admin
+(adm_id,adm_fname,adm_lname,adm_email,adm_dob,adm_gender,adm_mobile)
+VALUES
+('a001','Nimal','Perera','nimalperera@gmail.com','1987-05-28','M','0761526255');
