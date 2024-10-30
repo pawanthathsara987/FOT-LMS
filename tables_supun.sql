@@ -35,7 +35,7 @@ MODIFY tec_officer_mobile CHAR(15);
 
 INSERT INTO lecturer
 VALUES
-    ("L001","d004","TCS1222",'Chathuranga','Adhikari',"adikarichathuranga@gmail.com",'M',"1998-10-19","0741626677"),
+    ("L001","d004","TCS1212",'Chathuranga','Adhikari',"adikarichathuranga@gmail.com",'M',"1998-10-19","0741626677"),
     ("L002","d004","TMS1223",'Dilshani','Rasangika',"rasangi222@gmail.com",'F',"1990-05-12","0766816275"),
     ("L003","d004","TMS1213",'Sanjeewani','Thilakarathna',"sthilakarathna@gmail.com",'F',"1976-05-18","0776308378"),
     ("L004","d004","TMS1233",'Harsha','Kumara',"harshakuma@gmail.com",'M',"1978-10-04","0765760224"),
@@ -61,5 +61,7 @@ VALUES
     ("L021","d002","ICT1242",'Shashitha','Lakal',"shashitha55@gmail.com",'M',"1990-02-18","0745602104"),
     ("L022","d002","ICT1253",'Chanduni','Gamage',"chandunigamage@gmail.com",'F',"1991-03-19","0745612355");
 
-
+    INSERT INTO lecturer
+    VALUES 
+        ("L023","d004","ENG1212",'Naveen','Walimuni',"naveenwalimuni@gmail.com",'M',"1990-07-15","0763423456");
 
