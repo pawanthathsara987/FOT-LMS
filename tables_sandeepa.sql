@@ -22,8 +22,8 @@ CREATE TABLE exam_marks(
     CHECK (grade IN ('A','B','C','S','F'))
 );
 
-ALTER TABLE ADD FOREIGN KEY(stu_id) REFERENCES student(stu_id);
-ALTER TABLE ADD FOREIGN KEY(cour_code) REFERENCES course(cour_code);
+ALTER TABLE exam_marks ADD FOREIGN KEY(stu_id) REFERENCES student(stu_id);
+ALTER TABLE exam_marks ADD FOREIGN KEY(cour_code) REFERENCES course(cour_code);
 
 ALTER TABLE exam_marks DROP COLUMN grade;
 
@@ -169,7 +169,3 @@ VALUES
 
 ('TG0639','ICT1253', 5, 7, 9, 14, 16, 20, 16, 4),
 ('TG0639','TCS1212', NULL, NULL, NULL, 37, NULL, 56, NULL, NULL);
-
-
-
-
