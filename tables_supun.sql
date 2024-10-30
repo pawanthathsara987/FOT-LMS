@@ -65,3 +65,13 @@ VALUES
     VALUES 
         ("L023","d004","ENG1212",'Naveen','Walimuni',"naveenwalimuni@gmail.com",'M',"1990-07-15","0763423456");
 
+
+    INSERT INTO tec_officer
+    VALUES
+ 
+	("TO01","d001","Sajith","Kumara","sajithkumara@gmail.com","M","1997-02-16","0741657777"),
+	("TO02","d001","Kasun","Pradeep","kasunpradeep@gmail.com","M","1996-05-26","0774581284"),
+	("TO03","d002","Dinuka","Lakshan","dinukalakshan@gmail.com","M","1992-01-11","0762234582"),
+	("TO04","d002","Amila","Ruwan","amilaruwan@gmail.com","M","1994-08-19","0714585622"),
+	("TO05","d003","Chathura","Madushan","chathuramadushan@gmail.com","M","1988-02-07","0741607774"),
+	("TO06","d004","Rishini","Sathsara","rishinisathsara@gmail.com","F","1999-08-20","0763955615");
