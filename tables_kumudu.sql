@@ -31,6 +31,9 @@ CREATE TABLE attendence (
 
 RENAME TABLE attendence TO attendance;
 
+ALTER TABLE attendance
+ADD atten_type VARCHAR(10);
+
 /* medical table */
 
 CREATE TABLE medical (
