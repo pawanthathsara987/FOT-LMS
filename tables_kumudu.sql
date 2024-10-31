@@ -29,6 +29,8 @@ CREATE TABLE attendence (
     FOREIGN KEY (tec_officer_id) REFERENCES tec_officer(tec_officer_id)
 );
 
+RENAME TABLE attendence TO attendance;
+
 /* medical table */
 
 CREATE TABLE medical (
@@ -39,7 +41,7 @@ CREATE TABLE medical (
     med_date DATE,
     med_descrip VARCHAR(150),
     FOREIGN KEY (tec_officer_id) REFERENCES tec_officer(tec_officer_id),
-    FOREIGN KEY (atten_id) REFERENCES attendence(atten_id),
+    FOREIGN KEY (atten_id) REFERENCES attendance(atten_id),
     FOREIGN KEY (stu_id) REFERENCES student(stu_id)
 );
 
