@@ -12,6 +12,9 @@ CREATE TABLE student (
 ALTER TABLE student
 ADD stu_status VARCHAR(10);
 
+ALTER TABLE attendance
+ADD atten_hours INT(1);
+
 ALTER TABLE student
 ADD FOREIGN KEY (dep_id) REFERENCES department(dep_id);
 
