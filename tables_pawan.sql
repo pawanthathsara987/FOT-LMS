@@ -68,6 +68,20 @@ UPDATE course
 SET cour_credit = 3
 WHERE cour_code = "TMS1233";
 
+UPDATE course
+    SET cour_hours = CASE cour_code
+        WHEN "ICT1212" THEN 30
+        WHEN "ICT1222" THEN 60
+        WHEN "ICT1233" THEN 60
+        WHEN "ICT1242" THEN 30
+        WHEN "ICT1253" THEN 30
+        WHEN "TCS1212" THEN 30
+        WHEN "TMS1233" THEN 45
+        WHEN "ENG1212" THEN 30
+    END
+    WHERE user_id IN ("ICT1212", "ICT1222", "ICT1233", "ICT1242","ICT1253","TCS1212","TMS1233","ENG1212");
+
+
 INSERT INTO course
     (cour_code,dep_id,cour_name,cour_status,cour_credit)
 VALUES
@@ -78,6 +92,19 @@ VALUES
     ("ENT1253","d001","Engineering Properties of Matter","T",3),
     ("TMS1213","d001","Applied Calculus II","T",3),
     ("ENT1242","d001","Electricity and Magnetism","T",2);
+
+UPDATE course
+    SET cour_hours = CASE cour_code
+        WHEN "ENT1221" THEN 30
+        WHEN "ENT1211" THEN 60
+        WHEN "TMS1223" THEN 60
+        WHEN "ENT1231" THEN 30
+        WHEN "ENT1253" THEN 30
+        WHEN "TMS1213" THEN 30
+        WHEN "TMS1233" THEN 45
+        WHEN "ENT1242" THEN 30
+    END
+    WHERE cour_code IN ("ENT1221", "ENT1211", "TMS1223", "ENT1231","ENT1253","TMS1213","TMS1233","ENT1242");
 
 INSERT INTO course
     (cour_code,dep_id,cour_name,cour_status,cour_credit)
@@ -91,6 +118,21 @@ VALUES
     ("BST1262","d003","Basic Microbiology","T/P",2),
     ("BST1282","d003","Fundamentals In Agriculture","T/P",2);
 
+UPDATE course
+    SET cour_hours = CASE cour_code
+        WHEN "BST1272" THEN 30
+        WHEN "BST1212" THEN 60
+        WHEN "BST1222" THEN 60
+        WHEN "BST1232" THEN 30
+        WHEN "BST1242" THEN 30
+        WHEN "BST1251" THEN 30
+        WHEN "BST1262" THEN 45
+        WHEN "BST1282" THEN 30
+    END
+    WHERE cour_code IN ("BST1272", "BST1212", "BST1222", "BST1232","BST1242","BST1251","BST1262","BST1282");
+
+ALTER TABLE course 
+ADD cour_hours INT(2);
 
 INSERT INTO dean
     (dean_id,dean_fname,dean_lname,dean_email,gender,dean_dob,dean_mobile)
