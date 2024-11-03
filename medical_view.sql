@@ -1,3 +1,4 @@
+CREATE VIEW atten_count_each_subject AS
 SELECT
     stu_id,
     cour_code,
@@ -7,6 +8,3 @@ FROM
     attendance
 GROUP BY
     stu_id, cour_code;
-
-
-    
