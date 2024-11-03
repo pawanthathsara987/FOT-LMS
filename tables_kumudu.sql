@@ -1721,3 +1721,202 @@ VALUES
 ('a1498', 'TG1010', 'ENG1212', 'TO02', '2024-10-03', 'present', 'Theory', 2),
 ('a1499', 'TG1010', 'ENG1212', 'TO02', '2024-10-10', 'present', 'Theory', 2),
 ('a1500', 'TG1010', 'ENG1212', 'TO02', '2024-10-17', 'present', 'Theory', 2);
+
+
+/* Attendance procedures */
+
+1.
+
+DELIMITER //
+CREATE PROCEDURE AttendanceForWholeBatch()
+BEGIN
+     SELECT A.stu_id,C.cour_code,A.atten_type,
+    (SUM(CASE WHEN A.atten_status = "Present" THEN A.atten_hours ELSE 0 END)/c.cour_hours)*100 AS Atten_percentage,
+    CASE WHEN(SUM(CASE WHEN A.atten_status = "Present" THEN A.atten_hours ELSE 0 END)/(c.cour_hours))*100 >= 80.00 
+      THEN 'Eligible' 
+      ELSE 'Not Eligible' 
+      END AS Eligibity 
+    FROM attendance A
+    JOIN course C ON A.cour_code = C.cour_code
+     WHERE C.cour_code = A.cour_code
+    GROUP BY A.stu_id,C.cour_code,A.atten_type;
+    
+END;
+//
+DELIMITER ;
+
+CALL AttendanceForWholeBatch();
+
+
+2.
+
+DELIMITER //
+CREATE PROCEDURE Attendance_coursewise(IN cour_Code CHAR(7))
+BEGIN
+    SELECT A.stu_id,C.cour_code,A.atten_type,A.atten_date,
+        (SUM(CASE WHEN A.atten_status = 'present' THEN A.atten_hours ELSE 0 END) / C.cour_hours)*100 AS atten_percentage,
+        CASE 
+        WHEN (SUM(CASE WHEN A.atten_status = 'present' THEN A.atten_hours ELSE 0 END) / C.cour_hours)*100 >= 80.00 
+        THEN 'Eligible' 
+        ELSE 'Not Eligible' 
+        END AS Eligibility
+    FROM attendance A
+    JOIN course C ON A.cour_code = C.cour_code
+    WHERE A.cour_code = cour_Code
+    GROUP BY A.stu_id,c.cour_code,A.atten_type,A.atten_date;
+END;
+//
+DELIMITER ;
+
+CALL Attendance_coursewise('ICT1212');
+
+
+3.
+
+DELIMITER //
+CREATE PROCEDURE Attendance_Findby_StudentID(IN student_id CHAR(8))
+BEGIN
+     SELECT A.stu_id,C.cour_code,A.atten_type,
+    (SUM(CASE WHEN A.atten_status = "present" THEN A.atten_hours ELSE 0 END)/C.cour_hours)*100 AS Percentage,
+    CASE WHEN(SUM(CASE WHEN A.atten_status = "present" THEN A.atten_hours ELSE 0 END)/(C.cour_hours))*100 >= 80.00 
+      THEN 'Eligible' 
+      ELSE 'Not Eligible' 
+      END AS Eligibity 
+    FROM attendance A
+    JOIN course C ON A.cour_code = C.cour_code
+    WHERE C.cour_code = A.cour_code
+    AND A.stu_id = student_id
+    GROUP BY A.stu_id,C.cour_code,A.atten_type;
+END;
+//
+DELIMITER ;
+
+CALL Attendance_Findby_StudentID('TG1009');
+
+
+4.
+
+DELIMITER //
+CREATE PROCEDURE Attendance_Findby_StudenIDandCourseCode(IN student_id CHAR(8), course_code CHAR(7))
+BEGIN
+     SELECT A.stu_id,C.cour_code,A.atten_type,
+    (SUM(CASE WHEN A.atten_status = "present" THEN A.atten_hours ELSE 0 END)/C.cour_hours)*100 AS Attendance_percentage,
+    CASE WHEN(SUM(CASE WHEN A.atten_status = "present" THEN A.atten_hours ELSE 0 END)/(C.cour_hours))*100 >= 80.00 
+    THEN 'Eligible' 
+    ELSE 'Not Eligible' 
+    END AS Eligibity 
+    FROM attendance A
+    JOIN course C ON A.cour_code = C.cour_code
+    WHERE C.cour_code = A.cour_code
+    AND A.stu_id = student_id
+    AND C.cour_code = course_code 
+    GROUP BY A.stu_id,C.cour_code,A.atten_type;
+END;
+//
+DELIMITER ;
+
+CALL Attendance_Findby_StudenIDandCourseCode('TG1009','ICT1212');
+
+
+5.
+
+DELIMITER //
+CREATE PROCEDURE Attendance_For_TheoryorPractical(IN student_id CHAR(8), courcode CHAR(7), atype VARCHAR(10))
+BEGIN
+    SELECT A.stu_id,C.cour_code,A.atten_type,
+    ((SUM(CASE 
+        WHEN A.atten_status = "Present" THEN A.atten_hours ELSE 0 END) / c.cour_hours)*100) AS Atten_percentage,
+    CASE
+        WHEN ((SUM(CASE WHEN A.atten_status = "Present" THEN A.atten_hours ELSE 0 END) / c.cour_hours)*100 >= 80.00) THEN 'Eligible' 
+        ELSE 'Not Eligibile' END AS Eligibility 
+    FROM attendance A
+    JOIN course C ON A.cour_code = C.cour_code
+    WHERE A.stu_id = student_id
+    AND C.cour_code = courcode
+    AND (( atype = 'Theory' AND A.atten_type = 'Theory')
+         OR ( atype = 'Practical' AND A.atten_type = 'Practical'))
+    GROUP BY A.stu_id, C.cour_code, A.atten_type;
+END;
+//
+DELIMITER ;
+
+CALL Attendance_For_TheoryorPractical('TG1009','ICT1212','Theory');
+CALL Attendance_For_TheoryorPractical('TG1009','ICT1222','Practical');
+
+
+6.
+
+DELIMITER //
+
+CREATE PROCEDURE Attendance_For_TheoryandPractical(IN student_id CHAR(8), IN courcode CHAR(7))
+BEGIN
+    SELECT A.stu_id, C.cour_code,
+           ((SUM(CASE
+                 WHEN A.atten_status = "present" THEN A.atten_hours ELSE 0 END) / (C.cour_hours * 2)) * 100) AS Atten_percentage,
+           CASE
+               WHEN ((SUM(CASE
+                           WHEN A.atten_status = "present" THEN A.atten_hours ELSE 0 END) / (C.cour_hours * 2)) * 100) >= 80.00
+               THEN 'Eligible'
+               ELSE 'Not Eligible'
+           END AS Eligibility
+    FROM attendance A
+    JOIN course C ON A.cour_code = C.cour_code
+    WHERE A.stu_id = student_id
+      AND C.cour_code = courcode
+    GROUP BY A.stu_id, C.cour_code;
+END //
+
+DELIMITER ;
+
+CALL Attendance_For_TheoryandPractical('TG1009','ICT1253');
+
+
+7.
+
+DELIMITER // 
+CREATE PROCEDURE Attendance_For_TheoryPrac_course(courcode CHAR(7),atype VARCHAR(10))
+BEGIN
+     SELECT A.stu_id,C.cour_code,A.atten_type,
+    ((SUM(CASE 
+        WHEN A.atten_status = "present" THEN A.atten_hours ELSE 0 END)/C.cour_hours)*100) AS Attendance_percentage,
+    CASE
+        WHEN (SUM(CASE WHEN A.atten_status = "Present" THEN A.atten_hours ELSE 0 END) / C.cour_hours)*100 >= 80 
+        THEN 'Eligible'
+        ELSE 'Not Eligible' END AS Eligibility 
+    FROM attendance A
+    JOIN course C ON A.cour_code = C.cour_code
+    WHERE C.cour_code = A.cour_code
+    AND C.cour_code = courcode 
+    AND ((atype = 'Theory' AND A.atten_type = 'Theory')
+         OR (atype = 'Practical' AND A.atten_type = 'Practical'))
+    GROUP BY A.stu_id,C.cour_code,A.atten_type;
+END;
+//
+DELIMITER ;
+
+CALL Attendance_For_TheoryPrac_course('ICT1253','Theory');
+CALL Attendance_For_TheoryPrac_course('ICT1253','Practical');
+
+
+8.
+
+DELIMITER // 
+CREATE PROCEDURE Attendance_For_TheoryandPrac_course(courcode CHAR(7))
+BEGIN
+     SELECT A.stu_id,C.cour_code,
+    ((SUM(CASE 
+        WHEN A.atten_status = "Present" THEN A.atten_hours ELSE 0 END)/(C.cour_hours*2))*100) AS Attendance_percentage,
+    CASE
+        WHEN (SUM(CASE WHEN A.atten_status = "Present"  THEN A.atten_hours ELSE 0 END) / (c.cour_hours*2))*100 >= 80 
+        THEN 'Eligible'
+        ELSE 'Not Eligible' END AS Eligibility 
+    FROM attendance A
+    JOIN course C ON A.cour_code = C.cour_code
+    WHERE C.cour_code = A.cour_code
+    AND C.cour_code = courcode 
+    GROUP BY A.stu_id,C.cour_code;
+END;
+//
+DELIMITER ;
+
+CALL Attendance_For_TheoryandPrac_course('ICT1253');
