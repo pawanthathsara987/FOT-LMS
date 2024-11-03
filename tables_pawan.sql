@@ -81,6 +81,9 @@ UPDATE course
     END
     WHERE user_id IN ("ICT1212", "ICT1222", "ICT1233", "ICT1242","ICT1253","TCS1212","TMS1233","ENG1212");
 
+UPDATE course
+SET cour_hours = 30
+WHERE cour_code = "ICT1233";
 
 INSERT INTO course
     (cour_code,dep_id,cour_name,cour_status,cour_credit)
@@ -326,3 +329,23 @@ VALUE
 
     ('TG0611','ENG1212'),
     ('TG0611','TCS1212');
+
+INSERT INTO medical
+    (med_id,stu_id,atten_id,tec_officer_id,med_date,med_descrip)
+VALUES
+    ("m001","TG1001","a0006","TO01","2024-08-12","Headaches"),
+    ("m002","TG1001","a0009","TO01","2024-09-02","Stomach Aches"),
+    ("m003","TG1002","a0152","TO02","2024-07-15","Colds and Flu"),
+    ("m004","TG1003","a0304","TO03","2024-07-29","Headaches"),
+    ("m005","TG1003","a0332","TO03","2024-07-16","Headaches"),
+    ("m006","TG1004","a0501","TO04","2024-08-13","Stomach Aches"),
+    ("m007","TG1004","a0587","TO04","2024-07-18","Stomach Aches");
+
+
+
+/* VIEW For Ict Courses */
+
+CREATE VIEW ict_courses AS
+SELECT *
+FROM course
+WHERE dep_id IN ("d002","d004");
