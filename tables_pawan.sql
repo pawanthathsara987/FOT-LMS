@@ -349,3 +349,41 @@ CREATE VIEW ict_courses AS
 SELECT *
 FROM course
 WHERE dep_id IN ("d002","d004");
+
+
+/* Whole batch attendance without medical*/
+
+CREATE VIEW attendance_without_medical AS
+SELECT a.stu_id,a.cour_code,
+    SUM(CASE WHEN a.atten_status = "present" THEN 1 ELSE 0  END) AS present_status,
+    SUM(CASE WHEN a.atten_status = "absent" THEN 1 ELSE 0 END) AS abs_status,
+    (SUM(CASE WHEN a.atten_status = "present" THEN 1 ELSE 0  END)/(SUM(CASE WHEN a.atten_status = "present" THEN 1 ELSE 0  END)+SUM(CASE WHEN a.atten_status = "absent" THEN 1 ELSE 0 END)))*100 AS percentage,
+    CASE WHEN(SUM(CASE WHEN a.atten_status = "present" THEN 1 ELSE 0  END)/(SUM(CASE WHEN a.atten_status = "present" THEN 1 ELSE 0  END)+SUM(CASE WHEN a.atten_status = "absent" THEN 1 ELSE 0 END)))*100 >= 80 THEN  "eligible" ELSE "not_eligible" END AS eligibility
+    FROM attendance a
+    GROUP BY a.stu_id,a.cour_code; 
+
+SELECT stu_id,cour_code
+FROM attendance_without_medical
+WHERE eligibility = "eligible";
+
+SELECT stu_id,cour_code
+FROM attendance_without_medical
+WHERE eligibility = "not_eligible";
+
+/* Whole batch attendance with medical*/
+
+CREATE VIEW attendance_with_medical AS
+SELECT a.stu_id,a.cour_code,
+(SUM(CASE WHEN a.atten_date = m.med_date THEN 1 ELSE 0 END) + SUM(CASE WHEN a.atten_status = "present" THEN 1 ELSE 0  END)) / (SUM(CASE WHEN a.atten_status = "present" THEN 1 ELSE 0  END)+SUM(CASE WHEN a.atten_status = "absent" THEN 1 ELSE 0 END)) * 100 AS  med_attendance,
+CASE WHEN ((SUM(CASE WHEN a.atten_date = m.med_date THEN 1 ELSE 0 END) + SUM(CASE WHEN a.atten_status = "present" THEN 1 ELSE 0  END)) / (SUM(CASE WHEN a.atten_status = "present" THEN 1 ELSE 0  END)+SUM(CASE WHEN a.atten_status = "absent" THEN 1 ELSE 0 END)) * 100) >= 80 THEN  "eligible" ELSE "not_eligible" END AS eligibility
+FROM attendance a
+LEFT JOIN medical m ON a.stu_id = m.stu_id
+GROUP BY a.stu_id,a.cour_code;
+
+SELECT stu_id,cour_code
+FROM attendance_with_medical
+WHERE eligibility = "eligible";
+
+SELECT stu_id,cour_code
+FROM attendance_with_medical
+WHERE eligibility = "not_eligible";
