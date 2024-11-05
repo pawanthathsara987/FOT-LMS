@@ -311,7 +311,7 @@ BEGIN
             IFNULL(mid_practical, 0) +
             IFNULL(end_theory, 0) +
             IFNULL(end_practical, 0), 2)
-        AS CA_Marks,
+        AS final_Marks,
         CASE
             WHEN
                 ((IFNULL(quiz_1, 0) +
@@ -526,7 +526,7 @@ BEGIN
             IFNULL(mid_practical, 0) +
             IFNULL(end_theory, 0) +
             IFNULL(end_practical, 0), 2)
-        AS CA_Marks,
+        AS final_Marks,
         CASE
             WHEN
                 s.stu_status = 'Rejected' THEN 'WH'
