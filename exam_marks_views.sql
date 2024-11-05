@@ -529,3 +529,17 @@ GROUP BY
 --     s.stu_id;
     
 
+--check eligibility for final exam whole batch--
+
+CREATE VIEW eligible_of_final_exam_whole_batch AS
+SELECT
+    c.stu_id,
+    c.cour_code,
+    CASE
+        WHEN m.med_attendance >= 80 THEN 'eligible'
+        ELSE 'not eligible'
+    END AS final_exam_eligible_student
+FROM
+    show_ca_marks_eligibility_student c
+LEFT JOIN
+    attendance_with_medical m ON c.stu_id = m.stu_id AND c.cour_code = m.cour_code;
