@@ -135,7 +135,7 @@ SELECT
 		IFNULL(e.mid_practical, 0) +
 		IFNULL(e.end_theory, 0) +
 		IFNULL(e.end_practical, 0), 2)
-	AS CA_Marks,
+	AS FINAL_Marks,
 	CASE
         WHEN
             s.stu_status = 'Rejected' THEN 'WH'
