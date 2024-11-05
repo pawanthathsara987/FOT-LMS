@@ -1753,7 +1753,7 @@ CALL AttendanceForWholeBatch();
 DELIMITER //
 CREATE PROCEDURE Attendance_coursewise(IN cour_Code CHAR(7))
 BEGIN
-    SELECT A.stu_id,C.cour_code,A.atten_type,A.atten_date,
+    SELECT A.stu_id,C.cour_code,A.atten_type,
         (SUM(CASE WHEN A.atten_status = 'present' THEN A.atten_hours ELSE 0 END) / C.cour_hours)*100 AS atten_percentage,
         CASE 
         WHEN (SUM(CASE WHEN A.atten_status = 'present' THEN A.atten_hours ELSE 0 END) / C.cour_hours)*100 >= 80.00 
@@ -1763,7 +1763,7 @@ BEGIN
     FROM attendance A
     JOIN course C ON A.cour_code = C.cour_code
     WHERE A.cour_code = cour_Code
-    GROUP BY A.stu_id,c.cour_code,A.atten_type,A.atten_date;
+    GROUP BY A.stu_id,c.cour_code,A.atten_type;
 END;
 //
 DELIMITER ;
