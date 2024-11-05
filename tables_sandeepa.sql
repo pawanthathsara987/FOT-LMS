@@ -1,3 +1,8 @@
+CREATE USER 'admin'@'localhost'  IDENTIFIED BY '200203';
+GRANT ALL PRIVILEGES ON fot_lms.* TO  'admin'@'localhost';
+FLUSH PRIVILEGES;
+
+
 CREATE TABLE exam_marks(
     stu_id CHAR (8) NOT NULL,
     cour_code CHAR (10) NOT NULL,
