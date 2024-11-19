@@ -75,3 +75,54 @@ VALUES
 	("TO04","d002","Amila","Ruwan","amilaruwan@gmail.com","M","1994-08-19","0714585622"),
 	("TO05","d003","Chathura","Madushan","chathuramadushan@gmail.com","M","1988-02-07","0741607774"),
 	("TO06","d004","Rishini","Sathsara","rishinisathsara@gmail.com","F","1999-08-20","0763955615");
+
+
+    CREATE USER 'admin'@'localhost'  IDENTIFIED BY 'admin1234';
+    GRANT ALL PRIVILEGES ON fot_lms.* TO  'admin'@'localhost';
+    FLUSH PRIVILEGES;
+
+    SHOW GRANTS FOR 'admin'@'localhost';
+
+
+    CREATE USER 'dean'@'localhost' IDENTIFIED BY 'dean1234';
+    GRANT ALL PRIVILEGES ON fot_lms.* TO 'dean'@'localhost';
+    FLUSH PRIVILEGES;
+
+    SHOW GRANTS FOR 'dean'@'localhost';
+
+    CREATE USER 'lecturer'@'localhost' IDENTIFIED BY 'lecture1234';
+    GRANT ALL PRIVILEGES ON fot_lms.* TO 'lecturer'@'localhost';
+    REVOKE CREATE USER ON . FROM 'lecturer'@'localhost';
+    FLUSH PRIVILEGES;
+
+    SHOW GRANTS FOR 'lecture'@'localhost';
+
+
+    CREATE USER 'technicalofficer'@'localhost' IDENTIFIED BY 'to1234';
+    GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON fot_lms.attendance TO 'technicalofficer'@'localhost';
+    GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON fot_lms.attendance_with_medical TO 'technicalofficer'@'localhost';
+    GRANT SELECT,SHOW VIEW,INSERT,UPDATE ON fot_lms.attendance_without_medical TO 'technicalofficer'@'localhost';
+
+    FLUSH PRIVILEGES;
+
+    GRANT EXECUTE ON PROCEDURE fot_lms.show_ca_marks_by_course_id TO 'technicalofficer'@'localhost';
+    GRANT EXECUTE ON PROCEDURE fot_lms.show_ca_marks_by_student_id_and_course_id TO 'technicalofficer'@'localhost';
+    GRANT EXECUTE ON PROCEDURE fot_lms.show_ca_marks_using_student_id TO 'technicalofficer'@'localhost';
+    GRANT EXECUTE ON PROCEDURE fot_lms.show_final_marks_using_student_id TO 'technicalofficer'@'localhost';
+    GRANT EXECUTE ON PROCEDURE fot_lms.show_marks_each_subject_as_individual TO 'technicalofficer'@'localhost';
+    GRANT EXECUTE ON PROCEDURE fot_lms.show_marks_one_subject_as_individual TO 'technicalofficer'@'localhost';
+    GRANT EXECUTE ON PROCEDURE fot_lms.grade_for_each_subject_as_individual TO 'technicalofficer'@'localhost';
+    GRANT EXECUTE ON PROCEDURE fot_lms.grade_for_one_subject_as_individual TO 'technicalofficer'@'localhost';
+    GRANT EXECUTE ON PROCEDURE fot_lms.sgpa_of_student_as_individual TO 'technicalofficer'@'localhost';
+    GRANT EXECUTE ON PROCEDURE fot_lms.eligible_for_final_exam_as_individual TO 'technicalofficer'@'localhost';
+
+    FLUSH PRIVILEGES;
+
+    SHOW GRANTS FOR 'technicalofficer'@'localhost';
+
+    CREATE USER 'student'@'localhost' IDENTIFIED BY 'student1234';
+    GRANT EXECUTE ON PROCEDURE fot_lms.show_final_marks_using_student_id TO 'student'@'localhost';
+    GRANT EXECUTE ON PROCEDURE fot_lms.eligible_for_final_exam_as_individual TO 'student'@'localhost';
+    FLUSH PRIVILEGES;
+
+    SHOW GRANTS FOR 'student'@'localhost';
